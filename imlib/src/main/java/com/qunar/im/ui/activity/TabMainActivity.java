@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -672,13 +673,14 @@ public class TabMainActivity extends IMBaseActivity implements PermissionCallbac
             mFragments.add(new BuddiesFragment());
         }
 
-        if ("ejabhost1".equals(QtalkNavicationService.getInstance().getXmppdomain())
+        //TODO hqlin 去除发现Flagment
+        /*if ("ejabhost1".equals(QtalkNavicationService.getInstance().getXmppdomain())
                 || "ejabhost2".equals(QtalkNavicationService.getInstance().getXmppdomain())) {
             mFragments.add(getDiscoverFragment());
 
         } else {
             mFragments.add(new RNFoundFragment());
-        }
+        }*/
 
         //判断是启动rn页面还是原生页面
         if (QtalkNavicationService.getInstance().getNavConfigResult().RNAndroidAbility.RNMineView) {
@@ -822,14 +824,15 @@ public class TabMainActivity extends IMBaseActivity implements PermissionCallbac
                         popupMenu.show();
                     }
                 });
-                setActionBarRightSpecial(R.string.atom_ui_new_search);
+                //TODO hqlin 隐藏搜索弹出框入口
+                /*setActionBarRightSpecial(R.string.atom_ui_new_search);
                 setActionBarRightIconSpecialClick(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startSearchActivity();
                         saveHomeActLog("首页-搜索");
                     }
-                });
+                });*/
                 break;
             case 1:
                 setActionBarRightSpecial(0);
@@ -1554,6 +1557,16 @@ public class TabMainActivity extends IMBaseActivity implements PermissionCallbac
     private void saveHomeActLog(String desc){
         LogInfo logInfo = QLog.build(LogConstans.LogType.ACT,LogConstans.LogSubType.CLICK).describtion(desc);
         LogService.getInstance().saveLog(logInfo);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        //TODO hqlin 主界面添加激活RN菜单快捷键【空格】，无法使用菜单键双击，不知道为啥
+        if (keyCode == 62 && mReactInstanceManager != null) {
+            mReactInstanceManager.showDevOptionsDialog();
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
 }

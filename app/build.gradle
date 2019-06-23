@@ -1,23 +1,29 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('/Users/hqlin/key/im.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 26
 //    buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "sdk.im.qunar.com.qtalksdkdemo"
+        applicationId "com.qbc.android.app.im"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 206
         versionName "8.36"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
-        ndk {
-            abiFilters 'armeabi'//sdk 涉及的so文件只有armeabi一种类型（建议只过滤该类型，否则会导致sdk某些功能无法使用）
-        }
 
         packagingOptions {
-            exclude "lib/arm64-v8a/librealm-jni.so"//fix could find DSO to load: libreactnativejni.so error
+            exclude "lib/arm64-v8a/librealm-jni.so"
+            //fix could find DSO to load: libreactnativejni.so error
         }
 
     }
@@ -25,28 +31,82 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            ndk {
+                abiFilters 'armeabi'//sdk 涉及的so文件只有armeabi一种类型（建议只过滤该类型，否则会导致sdk某些功能无法使用）
+            }
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'armeabi', "armeabi-v7a", "x86"
+            }
         }
-
     }
-
     flavorDimensions "qim"
     //分渠道
     productFlavors {
-        //startalk
+        //dev
+        dev {
+            dimension "qim"
+
+            manifestPlaceholders = [
+                    PACKAGE_NAME: "com.qbc.android.app.im",
+                    serverDoMain: true,
+                    baiduMap    : "xxxxx",//百度地图key 用于发送位置消息
+                    SCHEME      : "qtalkaphone",
+                    currentPlat2 : "Startalk",
+                    currentPlat : "Startalk",
+                    MAIN_SCHEMA : "start_qtalk_activity",
+                    INIT_SRV_URL:"http://103.239.101.13:8080/newapi/nck/qtalk_nav.qunar",
+                    INIT_SRV_NAME:"本地测试"
+            ]
+        }
+        //qbliao-kh1
+        qbliaokh1 {
+            dimension "qim"
+
+            manifestPlaceholders = [
+                    PACKAGE_NAME: "com.qbc.android.app.im",
+                    serverDoMain: true,
+                    baiduMap    : "xxxxx",//百度地图key 用于发送位置消息
+                    SCHEME      : "qtalkaphone",
+                    currentPlat2 : "Startalk",
+                    currentPlat : "Startalk",
+                    MAIN_SCHEMA : "start_qtalk_activity",
+                    INIT_SRV_URL:"http://103.44.28.212:8080/newapi/nck/qtalk_nav.qunar",
+                    INIT_SRV_NAME:"仟佰聊-客户A"
+            ]
+        }
+        //qbliao
+        qbliao {
+            dimension "qim"
+
+            manifestPlaceholders = [
+                    PACKAGE_NAME: "com.qbc.android.app.im",
+                    serverDoMain: true,
+                    baiduMap    : "xxxxx",//百度地图key 用于发送位置消息
+                    SCHEME      : "qtalkaphone",
+
+                    currentPlat : "Startalk",
+                    MAIN_SCHEMA : "start_qtalk_activity",
+                    INIT_SRV_URL:"http://103.239.101.13:8080/newapi/nck/qtalk_nav.qunar",
+                    INIT_SRV_NAME:"仟佰聊"
+            ]
+        }
+        /*//startalk
         startalk {
             dimension "qim"
 
             manifestPlaceholders = [
-                    PACKAGE_NAME : "sdk.im.qunar.com.qtalksdkdemo",
-                    serverDoMain  : true,
-                    baiduMap :"xxxxx",//百度地图key 用于发送位置消息
-                    SCHEME : "qtalkaphone",
-                    currentPlat  : "Startalk",
-                    MAIN_SCHEMA : "start_qtalk_activity"
+                    PACKAGE_NAME: "com.qbc.android.app.im",
+                    serverDoMain: true,
+                    baiduMap    : "xxxxx",//百度地图key 用于发送位置消息
+                    SCHEME      : "qtalkaphone",
+                    currentPlat : "Startalk",
+                    MAIN_SCHEMA : "start_qtalk_activity",
+                    INIT_SRV_URL:""
             ]
         }
         // QChat
@@ -54,26 +114,24 @@ android {
             dimension "qim"
 
             manifestPlaceholders = [
-                    PACKAGE_NAME : "sdk.im.qunar.com.qtalksdkdemo",
-                    serverDoMain  : false,
-                    baiduMap :"xxxxx",//百度地图key 用于发送位置消息
-                    SCHEME : "qchataphone",
-                    currentPlat  : "QChat",
+                    PACKAGE_NAME: "com.qbc.android.app.im",
+                    serverDoMain: false,
+                    baiduMap    : "xxxxx",//百度地图key 用于发送位置消息
+                    SCHEME      : "qchataphone",
+                    currentPlat : "QChat",
                     MAIN_SCHEMA : "start_qchat_activity",
+                    INIT_SRV_URL:""
             ]
-        }
+        }*/
 
     }
-
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
-
     dexOptions {
         javaMaxHeapSize "4g"
         jumboMode = true
     }
-
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
@@ -86,16 +144,15 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile ('com.android.support.constraint:constraint-layout:1.0.2'){
+    compile('com.android.support.constraint:constraint-layout:1.0.2') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     compile project(':imlib')
-//    compile 'com.qunar.im:sdk-im:3.0.3'
+    //    compile 'com.qunar.im:sdk-im:3.0.3'
     testCompile 'junit:junit:4.12'
 }

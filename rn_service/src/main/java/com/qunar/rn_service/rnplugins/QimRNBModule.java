@@ -744,7 +744,7 @@ public class QimRNBModule extends ReactContextBaseJavaModule implements IMNotifi
     public void saveRemark(ReadableMap params, final Callback callback) {
         final String userId = params.getString("UserId");
         final String Remark = params.getString("Remark");
-        String Name = params.getString("Name");
+        final String Name = params.getString("Name");
 
         final WritableNativeMap re = new WritableNativeMap();
         final UserConfigData userConfigData = new UserConfigData();
@@ -753,6 +753,8 @@ public class QimRNBModule extends ReactContextBaseJavaModule implements IMNotifi
         userConfigData.setValue(Remark);
         userConfigData.setIsdel(CacheDataType.Y);
         userConfigData.setType(CacheDataType.set);
+        //TODO add by hqlin
+        userConfigData.setUsername(Name);
 
 
         HttpUtil.setUserConfig(userConfigData, new ProtocolCallback.UnitCallback<NewRemoteConfig>() {
@@ -766,10 +768,12 @@ public class QimRNBModule extends ReactContextBaseJavaModule implements IMNotifi
 //                        IMDatabaseManager.getInstance().bulkUserConfig(newRemoteConfig);
                         Nick nick = ConnectionUtil.getInstance().getNickById(userId);
                         nick.setMark(Remark);
+                        //TODO add by hqlin
+                        nick.setName(Name);
                         ConnectionUtil.getInstance().setNickToCache(nick);
                         IMNotificaitonCenter.getInstance().postMainThreadNotificationName(QtalkEvent.REFRESH_NICK);
                         re.putBoolean("ok", true);
-                        com.orhanobut.logger.Logger.i("设置备注漫游返回成功");
+                        com.orhanobut.logger.Logger.i("设置备注-姓名返回成功");
 //                        com.orhanobut.logger.Logger.i("设置备注漫游返回为null失败");
                     } else {
 //                                userConfigData.setVersion(newRemoteConfigs.getData().getVersion());

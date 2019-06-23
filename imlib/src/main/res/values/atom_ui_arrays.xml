@@ -3,7 +3,7 @@
     <string-array name="atom_ui_tab_title">
         <item>@string/atom_ui_tab_message</item>
         <item>@string/atom_ui_tab_contacts</item>
-        <item>@string/atom_ui_tab_title_contact</item>
+        <!--<item>@string/atom_ui_tab_title_contact</item>-->
         <item>@string/atom_ui_tab_mine</item>
     </string-array>
     <string-array name="atom_ui_tab_title_qtalk">

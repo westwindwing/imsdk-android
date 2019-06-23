@@ -41,18 +41,17 @@ dependencies {
     compile 'net.zetetic:android-database-sqlcipher:3.5.4'
     compile 'com.github.hijesse:android-logger:2.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     compile 'org.jsoup:jsoup:1.9.2'
     //日期选择器
     compile 'com.contrarywind:Android-PickerView:4.1.6'
-
     compile 'com.qunar.im:sdk-base:3.0.3'
     compile 'com.qunar.im:sdk-common:3.0.3'
     compile 'com.qunar.im:sdk-push:3.0.3'
-    compile project(':rn_service')//compile 'com.qunar.im:sdk-rn:3.0.3'
-//    compile ('com.qunar.im:sdk-rn:3.0.3')
-//            {
-//                exclude group:'com.facebook.react',module:'react-native'
-//            }
+    compile project(':rn_service')
+    //compile 'com.qunar.im:sdk-rn:3.0.3'
+    //    compile ('com.qunar.im:sdk-rn:3.0.3')
+    //            {
+    //                exclude group:'com.facebook.react',module:'react-native'
+    //            }
     compile 'com.qunar.im:sdk-rtc:3.0.3'
 }

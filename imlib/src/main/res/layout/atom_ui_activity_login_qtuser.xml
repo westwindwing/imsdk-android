@@ -59,7 +59,8 @@
             android:text="@string/atom_ui_company_create"
             android:textColor="#00CABE"
             android:textSize="16sp"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

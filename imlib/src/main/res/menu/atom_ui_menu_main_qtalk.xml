@@ -19,6 +19,7 @@
     <item
         android:id="@+id/action_wiki"
         android:title="wiki"
+        android:visible="false"
         android:icon="@drawable/atom_ui_wiki"/>
     <item
         android:id="@+id/action_read"
@@ -28,6 +29,7 @@
     <item
         android:id="@+id/action_ever_note"
         android:title="@string/atom_ui_setting_carry_note"
+        android:visible="false"
         android:icon="@drawable/atom_ui_home_evernote"/>
     <!--<item-->
         <!--android:id="@+id/action_ever_release"-->

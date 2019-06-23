@@ -40,7 +40,7 @@ public class DepartmentActivity extends SwipeBackActivity {
         final BaseFragment fragment;
         if(isNewDept){
             fragment = new OrganizationFragment();
-            setActionBarRightText(R.string.atom_ui_invite);
+            /*setActionBarRightText(R.string.atom_ui_invite);
             setActionBarRightTextClick(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -49,7 +49,7 @@ public class DepartmentActivity extends SwipeBackActivity {
                     intent.putExtra(QunarWebActvity.IS_HIDE_BAR, true);
                     startActivity(intent);
                 }
-            });
+            });*/
         }
         else fragment = new DeptFragment();
         // Transition for fragment1

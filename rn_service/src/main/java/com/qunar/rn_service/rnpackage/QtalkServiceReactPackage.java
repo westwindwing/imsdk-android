@@ -2,6 +2,7 @@ package com.qunar.rn_service.rnpackage;
 
 import android.app.Activity;
 
+import com.qbc.android.app.im.mplugins.QbcImRNBModule;
 import com.qunar.rn_service.rnplugins.QIMRnCheckUpdate;
 import com.qunar.rn_service.rnplugins.QimRNBModule;
 import com.facebook.react.ReactPackage;
@@ -30,6 +31,7 @@ public class QtalkServiceReactPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new QimRNBModule(reactContext,mActivity));
+        modules.add(new QbcImRNBModule(reactContext,mActivity));
         modules.add(new QtalkPlugin(reactContext));
         modules.add(new QIMRnCheckUpdate(reactContext));
         return modules;

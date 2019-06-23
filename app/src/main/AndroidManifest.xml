@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="sdk.im.qunar.com.qtalksdkdemo">
+    package="com.qbc.android.app.im">
 
     <!-- ————————————————————————  需要添加到自己主工程manifest文 start————————————————————-->
     <permission
-        android:name="sdk.im.qunar.com.qtalksdkdemo.permission.MIXPUSH_RECEIVE"
+        android:name="com.qbc.android.app.im.permission.MIXPUSH_RECEIVE"
         android:protectionLevel="signature" />
-
-    <uses-permission android:name="sdk.im.qunar.com.qtalksdkdemo.permission.MIXPUSH_RECEIVE" />
+    <uses-permission android:name="com.qbc.android.app.im.permission.MIXPUSH_RECEIVE" />
 
     <!-- 小米 -->
     <permission
-        android:name="sdk.im.qunar.com.qtalksdkdemo.permission.MIPUSH_RECEIVE"
+        android:name="com.qbc.android.app.im.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="com.qbc.android.app.im.permission.MIPUSH_RECEIVE" />
 
-    <uses-permission android:name="sdk.im.qunar.com.qtalksdkdemo.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -77,10 +75,11 @@
     <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />
 
     <application
-        android:name=".MyApplication"
         android:allowBackup="true"
+        android:name=".ImApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data tools:replace="android:value"
@@ -98,12 +97,23 @@
         <meta-data
             android:name="currentPlat"
             android:value="${currentPlat}" />
+        <meta-data
+            android:name="INIT_SRV_URL"
+            android:value="${INIT_SRV_URL}" />
+        <meta-data
+            android:name="INIT_SRV_NAME"
+            android:value="${INIT_SRV_NAME}" />
 
         <activity
             android:name="com.qunar.im.ui.activity.TabMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -190,21 +200,7 @@
                     android:scheme="${SCHEME}" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
-
-        <!-- —————————————————————————— 需要添加到自己主工程manifest文 end——————————————————————————————————————————————-->
-
-
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity">
         </activity>
-        <activity android:name=".ConversationListActivity"></activity>
-        <activity android:name=".TestActivity"></activity>
     </application>
-
 </manifest>
